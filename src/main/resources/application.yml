@@ -13,7 +13,4 @@ spring:
     password: root
     url: jdbc:postgresql://localhost:5432/blog?charset=UTF-8
     user: postgres
-  jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
 
