@@ -1,9 +1,11 @@
 package com.chahan.blog.dao;
 
-import com.chahan.blog.entity.Blogger;
+import com.chahan.blog.model.Blogger;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface BloggerRepository extends JpaRepository<Blogger, Long> {
 
-public interface BloggerRepository extends JpaRepository<Blogger,Integer> {
+    Blogger getByUsername(String username);
 }

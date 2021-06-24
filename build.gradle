@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
@@ -27,6 +28,8 @@ dependencies {
     implementation "org.flywaydb:flyway-core:$flywayCoreVersion"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-web"
+// https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
 
 }
 

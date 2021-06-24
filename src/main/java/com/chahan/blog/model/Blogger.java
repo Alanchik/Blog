@@ -1,28 +1,26 @@
 package com.chahan.blog.model;
 
-import lombok.Generated;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "bloggers")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Blogger {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "username")
     private String username;
+
+    @Column (name = "password")
     private String password;
 }

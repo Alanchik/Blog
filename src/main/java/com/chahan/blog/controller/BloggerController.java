@@ -1,6 +1,6 @@
 package com.chahan.blog.controller;
 
-import com.chahan.blog.entity.Blogger;
+import com.chahan.blog.model.Blogger;
 import com.chahan.blog.service.BloggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ import javax.security.auth.login.LoginException;
 import java.util.List;
 
 @RestController
-public class MyRESTController {
+public class BloggerController {
     @Autowired
     private BloggerService bloggersService;
 
@@ -26,13 +26,13 @@ public class MyRESTController {
     }
 
     @PostMapping("/bloggers")
-    public Blogger addNewBlogger(@RequestBody Blogger blogger) {
+    public Blogger addNewBlogger(@RequestBody Blogger blogger) throws LoginException {
         bloggersService.saveBlogger(blogger);
         return blogger;
     }
 
     @PutMapping("/bloggers")
-    public Blogger updateBlogger(@RequestBody Blogger blogger)  {
+    public Blogger updateBlogger(@RequestBody Blogger blogger) throws LoginException {
         bloggersService.saveBlogger(blogger);
         return blogger;
     }
