@@ -19,11 +19,7 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/signUp")
-    public void signUp(@Valid @RequestBody RegistrationDto request
-            , BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new ValidationException();
-        } else
+    public void signUp(@Valid @RequestBody RegistrationDto request){
             registrationService.signUp(request);
     }
 }
