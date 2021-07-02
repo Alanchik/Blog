@@ -7,13 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.chahan.blog.util.Constants.USER_ALREADY_EXISTS;
+import static com.chahan.blog.util.CommonUtils.USER_ALREADY_EXISTS;
 
 @Service
 @RequiredArgsConstructor
 public class RegistrationService {
 
-    private  final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final BloggerService bloggerService;
 
     public void signUp(RegistrationDto registrationDto) {

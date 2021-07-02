@@ -1,6 +1,8 @@
 package com.chahan.blog.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -10,7 +12,6 @@ import javax.persistence.*;
 @Setter
 @Table(name = "bloggers")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Blogger {
 
     @Id
@@ -21,6 +22,6 @@ public class Blogger {
     @Column(name = "username")
     private String username;
 
-    @Column (name = "password")
+    @Column(name = "password")
     private String password;
 }

@@ -3,13 +3,12 @@ package com.chahan.blog.controller;
 import com.chahan.blog.dto.RegistrationDto;
 import com.chahan.blog.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.properties.bind.BindResult;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/signUp")
-    public void signUp(@Valid @RequestBody RegistrationDto request){
-            registrationService.signUp(request);
+    public void signUp(@Valid @RequestBody RegistrationDto request) {
+        registrationService.signUp(request);
     }
 }
