@@ -5,10 +5,8 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Setter
-
 public class ApiError {
     private int status;
     private String message;
-
 
 }
