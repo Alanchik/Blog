@@ -3,9 +3,7 @@ package com.chahan.blog.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +11,6 @@ import java.util.Collection;
 @Getter
 @Setter
 public class BloggerDetails implements UserDetails {
-    private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
     private String password;
     private String username;
