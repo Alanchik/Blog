@@ -24,4 +24,5 @@ public class Blogger {
 
     @Column(name = "password")
     private String password;
+
 }
