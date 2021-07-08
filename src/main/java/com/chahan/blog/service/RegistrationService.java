@@ -6,7 +6,6 @@ import com.chahan.blog.model.Blogger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import static com.chahan.blog.util.CommonUtils.USER_ALREADY_EXISTS;
 
 @Service

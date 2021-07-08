@@ -1,10 +1,8 @@
 package com.chahan.blog.dto;
 
 import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-
 import static com.chahan.blog.util.CommonUtils.*;
 
 @Data

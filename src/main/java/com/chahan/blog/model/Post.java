@@ -4,24 +4,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
-
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "bloggers")
 @NoArgsConstructor
-public class Blogger {
-
+@Table(name = "posts")
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "author_id")
+    private Long authorID;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "description")
+    private String description;
 
+    @Column(name = "published")
+    private LocalDateTime published;
 }
+
+
