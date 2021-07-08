@@ -1,12 +1,12 @@
 package com.chahan.blog.util;
 
-import org.springframework.security.core.Authentication;
+import com.chahan.blog.model.BloggerDetails;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuthUtils {
-    public static Authentication getAuth() {
+    public static BloggerDetails getCurrentBlogger() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
-        return securityContext.getAuthentication();
+        return (BloggerDetails) securityContext.getAuthentication().getPrincipal();
     }
 }

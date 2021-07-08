@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,14 +11,14 @@ import java.util.Collection;
 @Setter
 public class BloggerDetails implements UserDetails {
 
+    private Long id;
     private String password;
     private String username;
-    private Long id;
 
-    public BloggerDetails(String username, String password, Long id) {
+    public BloggerDetails(Long id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
-        this.id = id;
     }
 
     @Override

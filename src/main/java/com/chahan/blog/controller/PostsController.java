@@ -5,7 +5,6 @@ import com.chahan.blog.model.Post;
 import com.chahan.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 

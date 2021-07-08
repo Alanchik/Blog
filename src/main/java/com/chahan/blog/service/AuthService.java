@@ -22,6 +22,6 @@ public class AuthService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        return new BloggerDetails(blogger.getUsername(), blogger.getPassword(), blogger.getId());
+        return new BloggerDetails(blogger.getId(), blogger.getUsername(), blogger.getPassword());
     }
 }
