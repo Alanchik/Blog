@@ -14,10 +14,12 @@ public class BloggerDetails implements UserDetails {
 
     private String password;
     private String username;
+    private Long id;
 
-    public BloggerDetails(String username, String password) {
+    public BloggerDetails(String username, String password, Long id) {
         this.username = username;
         this.password = password;
+        this.id = id;
     }
 
     @Override

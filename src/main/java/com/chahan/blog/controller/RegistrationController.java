@@ -21,4 +21,5 @@ public class RegistrationController {
     public void signUp(@Valid @RequestBody RegistrationDto request) {
         registrationService.signUp(request);
     }
+
 }

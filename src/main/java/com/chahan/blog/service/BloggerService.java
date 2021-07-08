@@ -11,15 +11,15 @@ public class BloggerService {
 
     private final BloggerRepository bloggerRepository;
 
-    public Blogger getBlogger(String username) {
-        return bloggerRepository.getByUsername(username);
-    }
-
     public void saveNewBlogger(String username, String password) {
         Blogger blogger = new Blogger();
         blogger.setUsername(username);
         blogger.setPassword(password);
         bloggerRepository.save(blogger);
+    }
+
+    public Blogger getBlogger(String username) {
+        return bloggerRepository.getByUsername(username);
     }
 
 }
