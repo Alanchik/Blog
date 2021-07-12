@@ -6,7 +6,8 @@ import com.chahan.blog.model.Blogger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import static com.chahan.blog.util.CommonUtils.USER_ALREADY_EXISTS;
+
+import static com.chahan.blog.util.CommonUtils.ERROR_USER_ALREADY_EXISTS;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class RegistrationService {
     public void signUp(RegistrationDto registrationDto) {
         Blogger blogger = bloggerService.getBlogger(registrationDto.getUsername());
         if (blogger != null) {
-            throw new BadRequestApiException(USER_ALREADY_EXISTS);
+            throw new BadRequestApiException(ERROR_USER_ALREADY_EXISTS);
         }
         bloggerService.saveNewBlogger(registrationDto.getUsername()
                 , passwordEncoder.encode(registrationDto.getPassword()));

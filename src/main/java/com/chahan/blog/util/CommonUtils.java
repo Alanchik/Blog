@@ -16,6 +16,6 @@ public class CommonUtils {
             " and lowercase letter" +
             ", no spaces and at least 8 characters";
 
-    public static final String USER_ALREADY_EXISTS = "User already exists";
-
+    public static final String ERROR_USER_ALREADY_EXISTS = "User already exists";
+    public static final String ERROR_USER_FOLLOW_YOURSELF ="User can't subscribe yourself";
 }

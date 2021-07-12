@@ -22,8 +22,8 @@ public class GlobalExceptionHandler {
             Exception exception) {
         ApiError data = new ApiError();
         data.setMessage(exception.getMessage());
-        data.setStatus(HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+        data.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ResponseEntity<>(data, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

@@ -1,15 +1,18 @@
 package com.chahan.blog.service;
 
 import com.chahan.blog.dao.BloggerRepository;
+import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.model.Blogger;
 import com.chahan.blog.model.BloggerDetails;
 import com.chahan.blog.util.AuthUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.chahan.blog.util.CommonUtils.ERROR_USER_FOLLOW_YOURSELF;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +33,14 @@ public class BloggerService {
 
     public void follow(Long subscriptionBloggerId) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        if (subscriptionBloggerId.equals(blogger.getId())) {
+            throw new BadRequestApiException(ERROR_USER_FOLLOW_YOURSELF);
+        }
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        Blogger subscriptionBlogger = bloggerRepository.getById(subscriptionBloggerId);
-        currentBlogger.getSubscriptions().add(subscriptionBlogger);
+        Blogger subscribeBlogger = bloggerRepository.getById(subscriptionBloggerId);
+        currentBlogger.getSubscriptions().add(subscribeBlogger);
         bloggerRepository.save(currentBlogger);
+
     }
 
     public void unfollow(Long id) {
@@ -43,28 +50,21 @@ public class BloggerService {
         bloggerRepository.save(currentBlogger);
     }
 
-    public List<Long> getListOfSubscription() {
+    public Set<Long> getListOfSubscription() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        Iterator<Blogger> iterator = currentBlogger.getSubscriptions().iterator();
-        List<Long> listId = new ArrayList<>();
-        while (iterator.hasNext()) {
-            listId.add(iterator.next().getId());
-        }
-        return listId;
+        return currentBlogger.getSubscriptions().stream()
+                .map(Blogger::getId)
+                .collect(toSet());
     }
 
 
-    public List<Long> getListOfSubscribers() {
+    public Set<Long> getListOfSubscribers() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        System.out.println(currentBlogger.getSubscribers());
-        Iterator<Blogger> iterator = currentBlogger.getSubscribers().iterator();
-        List<Long> listId = new ArrayList<>();
-        while (iterator.hasNext()) {
-            listId.add(iterator.next().getId());
-        }
-        return listId;
+        return currentBlogger.getSubscribers().stream()
+                .map(Blogger::getId)
+                .collect(Collectors.toSet());
     }
 
 }

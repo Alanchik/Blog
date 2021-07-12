@@ -4,7 +4,7 @@ import com.chahan.blog.service.BloggerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,12 +23,12 @@ public class BloggerController {
     }
 
     @GetMapping("/subscriptions")
-    public List<Long> getListOfSubscription() {
+    public Set<Long> getSubscription() {
         return followService.getListOfSubscription();
     }
 
     @GetMapping("/subscribers")
-    public List<Long> getListOfSubscribers() {
+    public Set<Long> getSubscribers() {
         return followService.getListOfSubscribers();
     }
 }
