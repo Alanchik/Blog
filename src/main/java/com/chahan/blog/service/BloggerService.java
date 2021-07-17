@@ -30,6 +30,9 @@ public class BloggerService {
     public Blogger getBlogger(String username) {
         return bloggerRepository.getByUsername(username);
     }
+    public Blogger getBlogger (Long id){
+        return bloggerRepository.getById(id);
+    }
 
     public void follow(Long subscriptionBloggerId) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
@@ -63,7 +66,7 @@ public class BloggerService {
     }
 
 
-    public Set<Long> getListOfSubscribers() {
+    public Set<Long> getCurrentSubscribers() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
         return currentBlogger.getSubscribers().stream()

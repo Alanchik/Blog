@@ -26,7 +26,7 @@ public class PostService {
     public void createPost(CreatePostDto postDto) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Post post = new Post();
-        post.setAuthor(bloggerService.getBlogger(blogger.getUsername()));
+        post.setAuthor(bloggerService.getBlogger(blogger.getId()));
         post.setDescription(postDto.getDescription());
         post.setPublished(LocalDateTime.now());
         postRepository.save(post);

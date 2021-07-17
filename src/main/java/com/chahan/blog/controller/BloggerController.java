@@ -23,12 +23,12 @@ public class BloggerController {
     }
 
     @GetMapping("/subscriptions")
-    public Set<Long> getSubscription() {
+    public Set<Long> getSubscriptions() {
         return bloggerService.getCurrentSubscriptions();
     }
 
     @GetMapping("/subscribers")
     public Set<Long> getSubscribers() {
-        return bloggerService.getListOfSubscribers();
+        return bloggerService.getCurrentSubscribers();
     }
 }

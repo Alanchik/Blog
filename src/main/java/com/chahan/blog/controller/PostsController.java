@@ -28,7 +28,7 @@ public class PostsController {
     }
 
     @GetMapping
-    public List<PostDto> getSubscriptionsPost(Pageable pageable) {
+    public List<PostDto> getSubscriptionsPosts(Pageable pageable) {
         return postService.getSubscriptionsPosts(pageable);
     }
 }
