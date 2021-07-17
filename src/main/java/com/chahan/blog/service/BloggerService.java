@@ -50,9 +50,13 @@ public class BloggerService {
         bloggerRepository.save(currentBlogger);
     }
 
-    public Set<Long> getListOfSubscription() {
+    public Set<Long> getCurrentSubscriptions() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
-        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        return getSubscriptions(blogger.getId());
+    }
+
+    public Set<Long> getSubscriptions(Long bloggerId) {
+        Blogger currentBlogger = bloggerRepository.getById(bloggerId);
         return currentBlogger.getSubscriptions().stream()
                 .map(Blogger::getId)
                 .collect(toSet());

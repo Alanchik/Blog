@@ -10,25 +10,25 @@ import java.util.Set;
 @RequiredArgsConstructor
 @RequestMapping("/bloggers")
 public class BloggerController {
-    private final BloggerService followService;
+    private final BloggerService bloggerService;
 
     @PostMapping("/{id}/follow")
     public void follow(@PathVariable Long id) {
-        followService.follow(id);
+        bloggerService.follow(id);
     }
 
     @DeleteMapping("/{id}/unfollow")
     public void unfollow(@PathVariable Long id) {
-        followService.unfollow(id);
+        bloggerService.unfollow(id);
     }
 
     @GetMapping("/subscriptions")
     public Set<Long> getSubscription() {
-        return followService.getListOfSubscription();
+        return bloggerService.getCurrentSubscriptions();
     }
 
     @GetMapping("/subscribers")
     public Set<Long> getSubscribers() {
-        return followService.getListOfSubscribers();
+        return bloggerService.getListOfSubscribers();
     }
 }

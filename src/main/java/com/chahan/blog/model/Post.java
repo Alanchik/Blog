@@ -3,6 +3,7 @@ package com.chahan.blog.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,8 +18,9 @@ public class Post {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "author_id")
-    private Long authorID;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
+    private Blogger author;
 
     @Column(name = "description")
     private String description;
