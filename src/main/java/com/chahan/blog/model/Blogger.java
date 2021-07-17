@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -25,6 +26,9 @@ public class Blogger {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

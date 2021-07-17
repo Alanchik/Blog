@@ -30,6 +30,9 @@ public class BloggerService {
     public Blogger getBlogger(String username) {
         return bloggerRepository.getByUsername(username);
     }
+    public Blogger getBlogger (Long id){
+        return bloggerRepository.getById(id);
+    }
 
     public void follow(Long subscriptionBloggerId) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
@@ -50,16 +53,20 @@ public class BloggerService {
         bloggerRepository.save(currentBlogger);
     }
 
-    public Set<Long> getListOfSubscription() {
+    public Set<Long> getCurrentSubscriptions() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
-        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        return getSubscriptions(blogger.getId());
+    }
+
+    public Set<Long> getSubscriptions(Long bloggerId) {
+        Blogger currentBlogger = bloggerRepository.getById(bloggerId);
         return currentBlogger.getSubscriptions().stream()
                 .map(Blogger::getId)
                 .collect(toSet());
     }
 
 
-    public Set<Long> getListOfSubscribers() {
+    public Set<Long> getCurrentSubscribers() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
         return currentBlogger.getSubscribers().stream()

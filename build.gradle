@@ -20,8 +20,6 @@ repositories {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter"
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     implementation "org.postgresql:postgresql:$postgresqlVersion"
     implementation "org.flywaydb:flyway-core:$flywayCoreVersion"
@@ -29,7 +27,10 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.hibernate:hibernate-validator:$hibernateValidator"
     implementation "org.springframework.boot:spring-boot-starter-security"
-
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
 }
 
 test {
