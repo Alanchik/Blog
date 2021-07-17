@@ -28,9 +28,9 @@ dependencies {
     implementation "org.hibernate:hibernate-validator:$hibernateValidator"
     implementation "org.springframework.boot:spring-boot-starter-security"
     compileOnly "org.projectlombok:lombok:$lombokVersion"
-    implementation "org.mapstruct:mapstruct:$mapstruct"
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructProcessor"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
 }
 
 test {
