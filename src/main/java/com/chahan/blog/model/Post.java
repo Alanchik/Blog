@@ -20,7 +20,7 @@ public class Post {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Blogger author;
 
@@ -30,8 +30,9 @@ public class Post {
     @Column(name = "published")
     private LocalDateTime published;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<Comment> comments;
+
 }
 
 

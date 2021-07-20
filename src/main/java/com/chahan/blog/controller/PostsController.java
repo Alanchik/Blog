@@ -23,8 +23,18 @@ public class PostsController {
         postService.createPost(request);
     }
 
+    @PutMapping("/{id}")
+    public void updatePost(@Valid @RequestBody CreatePostDto request, @PathVariable Long id) {
+        postService.updatePost(request, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
+    }
+
     @GetMapping("/current")
-    public List<Post> getYourselfPosts() {
+    public List<PostDto> getYourselfPosts() {
         return postService.getBloggersPosts();
     }
 
