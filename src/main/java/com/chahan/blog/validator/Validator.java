@@ -25,4 +25,11 @@ public class Validator {
             throw new BadRequestApiException("Post doesn't contains comment");
         }
     }
+
+    public void validatePostAccess(Post post) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        if (!blogger.getId().equals(post.getAuthor().getId())) {
+            throw new BadRequestApiException("Post doesn't belong to current user");
+        }
+    }
 }

@@ -1,6 +1,6 @@
 package com.chahan.blog.service;
 
-import com.chahan.blog.Validator.Validator;
+import com.chahan.blog.validator.Validator;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreatePostDto;
 import com.chahan.blog.dto.PostDto;
@@ -48,7 +48,7 @@ public class PostService {
     }
 
 
-    public List<Post> showBloggersPosts() {
+    public List<Post> getBloggersPosts() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         return postRepository.getByAuthorId(blogger.getId());
     }
