@@ -32,7 +32,7 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public List<Post> showBloggersPosts() {
+    public List<Post> getBloggersPosts() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         return postRepository.getByAuthorId(blogger.getId());
     }

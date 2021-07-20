@@ -3,13 +3,11 @@ package com.chahan.blog.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-public class PostDto {
+public class CommentDto {
     private Long id;
     private AuthorDto author;
-    private String description;
+    private String text;
     private LocalDateTime published;
-    private List<CommentDto> comments;
 }

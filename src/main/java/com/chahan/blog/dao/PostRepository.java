@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
     List<Post> getByAuthorId(Long id);
     List<Post> getByAuthorIdInOrderByPublishedDesc(Set<Long> ids, Pageable pageable);
 }

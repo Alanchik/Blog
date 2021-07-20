@@ -25,5 +25,4 @@ public class GlobalExceptionHandler {
         data.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return new ResponseEntity<>(data, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 }

@@ -9,6 +9,5 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = IGNORE)
 public interface BloggerMapper {
-
     AuthorDto map(Blogger blogger);
 }
