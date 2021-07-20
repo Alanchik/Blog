@@ -23,8 +23,8 @@ public class PostsController {
     }
 
     @GetMapping("/current")
-    public List<Post> showYourselfPosts() {
-        return postService.showBloggersPosts();
+    public List<Post> getYourselfPosts() {
+        return postService.getBloggersPosts();
     }
 
     @GetMapping

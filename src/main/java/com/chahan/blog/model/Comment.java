@@ -6,31 +6,29 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "posts")
-public class Post {
+@Table(name = "comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private Blogger author;
 
     @Column(name = "description")
-    private String description;
+    private String text;
 
     @Column(name = "published")
     private LocalDateTime published;
-
-    @OneToMany (mappedBy = "post")
-    private List<Comment> comments;
 }
-
-
