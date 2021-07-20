@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/posts")
 public class PostsController {
+
     private final PostService postService;
 
     @PostMapping
@@ -31,4 +32,5 @@ public class PostsController {
     public List<PostDto> getSubscriptionsPosts(Pageable pageable) {
         return postService.getSubscriptionsPosts(pageable);
     }
+
 }

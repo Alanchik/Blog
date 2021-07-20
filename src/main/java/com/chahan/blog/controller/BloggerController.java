@@ -10,6 +10,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @RequestMapping("/bloggers")
 public class BloggerController {
+
     private final BloggerService bloggerService;
 
     @PostMapping("/{id}/follow")

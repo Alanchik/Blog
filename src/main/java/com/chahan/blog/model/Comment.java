@@ -26,7 +26,7 @@ public class Comment {
     @JoinColumn(name = "author_id")
     private Blogger author;
 
-    @Column(name = "description")
+    @Column(name = "text")
     private String text;
 
     @Column(name = "published")

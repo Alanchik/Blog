@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "posts")
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -29,7 +30,7 @@ public class Post {
     @Column(name = "published")
     private LocalDateTime published;
 
-    @OneToMany (mappedBy = "post")
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 }
 
