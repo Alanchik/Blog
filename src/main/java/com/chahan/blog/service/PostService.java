@@ -1,5 +1,6 @@
 package com.chahan.blog.service;
 
+import com.chahan.blog.Validator.Validator;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreatePostDto;
 import com.chahan.blog.dto.PostDto;
@@ -22,6 +23,7 @@ public class PostService {
     private final BloggerService bloggerService;
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final Validator validator;
 
     public void createPost(CreatePostDto postDto) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
@@ -31,6 +33,20 @@ public class PostService {
         post.setPublished(LocalDateTime.now());
         postRepository.save(post);
     }
+
+    public void updatePost(CreatePostDto request, Long postId) {
+        Post post = postRepository.getById(postId);
+        validator.validatePostAccess(post);
+        post.setDescription(request.getDescription());
+        postRepository.save(post);
+    }
+
+    public void deletePost(Long postId) {
+        Post post = postRepository.getById(postId);
+        validator.validatePostAccess(post);
+        postRepository.deleteById(postId);
+    }
+
 
     public List<Post> showBloggersPosts() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
