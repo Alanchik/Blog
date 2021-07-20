@@ -32,9 +32,7 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<Comment> comments;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "post_id")
-//    private List<Comment> comments;
+
 }
 
 
