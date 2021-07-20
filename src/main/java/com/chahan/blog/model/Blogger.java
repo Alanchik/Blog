@@ -30,6 +30,9 @@ public class Blogger {
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "subscribers",

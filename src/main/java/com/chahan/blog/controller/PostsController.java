@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/posts")
 public class PostsController {
+
     private final PostService postService;
 
     @PostMapping
@@ -33,8 +34,8 @@ public class PostsController {
     }
 
     @GetMapping("/current")
-    public List<Post> showYourselfPosts() {
-        return postService.showBloggersPosts();
+    public List<Post> getYourselfPosts() {
+        return postService.getBloggersPosts();
     }
 
     @GetMapping
