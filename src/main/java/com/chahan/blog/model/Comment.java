@@ -18,11 +18,11 @@ public class Comment {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "author_id")
     private Blogger author;
 

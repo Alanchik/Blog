@@ -34,7 +34,7 @@ public class PostsController {
     }
 
     @GetMapping("/current")
-    public List<Post> getYourselfPosts() {
+    public List<PostDto> getYourselfPosts() {
         return postService.getBloggersPosts();
     }
 

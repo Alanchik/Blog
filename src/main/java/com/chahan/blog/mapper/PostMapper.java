@@ -10,5 +10,6 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 
 @Mapper(componentModel = "spring", uses = BloggerMapper.class, unmappedTargetPolicy = IGNORE)
 public interface PostMapper {
+
     List<PostDto> map(List<Post> posts);
 }

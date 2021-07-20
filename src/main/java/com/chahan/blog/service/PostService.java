@@ -1,6 +1,5 @@
 package com.chahan.blog.service;
 
-import com.chahan.blog.validator.Validator;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreatePostDto;
 import com.chahan.blog.dto.PostDto;
@@ -8,6 +7,7 @@ import com.chahan.blog.mapper.PostMapper;
 import com.chahan.blog.model.BloggerDetails;
 import com.chahan.blog.model.Post;
 import com.chahan.blog.util.AuthUtils;
+import com.chahan.blog.validator.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,9 +48,9 @@ public class PostService {
     }
 
 
-    public List<Post> getBloggersPosts() {
+    public List<PostDto> getBloggersPosts() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
-        return postRepository.getByAuthorId(blogger.getId());
+        return postMapper.map(postRepository.getByAuthorId(blogger.getId()));
     }
 
     public List<PostDto> getSubscriptionsPosts(Pageable pageable) {
