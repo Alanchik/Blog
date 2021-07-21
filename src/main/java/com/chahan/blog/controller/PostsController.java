@@ -2,7 +2,6 @@ package com.chahan.blog.controller;
 
 import com.chahan.blog.dto.CreatePostDto;
 import com.chahan.blog.dto.PostDto;
-import com.chahan.blog.model.Post;
 import com.chahan.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -43,4 +42,13 @@ public class PostsController {
         return postService.getSubscriptionsPosts(pageable);
     }
 
+    @PostMapping("/{id}/likes")
+    public void addLike(@PathVariable Long id) {
+        postService.addLike(id);
+    }
+
+    @DeleteMapping("/{id}/likes")
+    public void deleteLike(@PathVariable Long id) {
+        postService.deleteLike(id);
+    }
 }

@@ -1,9 +1,11 @@
 package com.chahan.blog.service;
 
+import com.chahan.blog.dao.BloggerRepository;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreatePostDto;
 import com.chahan.blog.dto.PostDto;
 import com.chahan.blog.mapper.PostMapper;
+import com.chahan.blog.model.Blogger;
 import com.chahan.blog.model.BloggerDetails;
 import com.chahan.blog.model.Post;
 import com.chahan.blog.util.AuthUtils;
@@ -21,6 +23,7 @@ import java.util.Set;
 public class PostService {
 
     private final BloggerService bloggerService;
+    private final BloggerRepository bloggerRepository;
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final Validator validator;
@@ -57,5 +60,19 @@ public class PostService {
         Set<Long> subscriptions = bloggerService.getCurrentSubscriptions();
         List<Post> posts = postRepository.getByAuthorIdInOrderByPublishedDesc(subscriptions, pageable);
         return postMapper.map(posts);
+    }
+
+    public void addLike(Long id) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        currentBlogger.getPostLikes().add(postRepository.getById(id));
+        bloggerRepository.save(currentBlogger);
+    }
+
+    public void deleteLike(Long id) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        currentBlogger.getPostLikes().removeIf(like -> like.getId().equals(id));
+        bloggerRepository.save(currentBlogger);
     }
 }
