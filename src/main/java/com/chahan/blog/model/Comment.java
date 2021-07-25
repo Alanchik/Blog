@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,4 +32,12 @@ public class Comment {
 
     @Column(name = "published")
     private LocalDateTime published;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "comment_likes"
+            , joinColumns = @JoinColumn(name = "comment_id")
+            , inverseJoinColumns = @JoinColumn(name = "blogger_id")
+    )
+    private List<Blogger> bloggerLikes;
 }

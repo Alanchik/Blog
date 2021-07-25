@@ -28,4 +28,14 @@ public class CommentController {
     public void deleteComment(@PathVariable Long commentId) {
         commentService.deleteComment(commentId);
     }
+
+    @PostMapping("/{id}/likes")
+    public void addLike(@PathVariable Long id) {
+        commentService.addLike(id);
+    }
+
+    @DeleteMapping("/{id}/likes")
+    public void deleteLike(@PathVariable Long id) {
+        commentService.deleteLike(id);
+    }
 }

@@ -4,6 +4,7 @@ import com.chahan.blog.dao.BloggerRepository;
 import com.chahan.blog.dao.CommentRepository;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreateCommentDto;
+import com.chahan.blog.model.Blogger;
 import com.chahan.blog.model.BloggerDetails;
 import com.chahan.blog.model.Comment;
 import com.chahan.blog.model.Post;
@@ -45,5 +46,19 @@ public class CommentService {
         Comment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
         commentRepository.deleteById(commentId);
+    }
+
+    public void addLike(Long id) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        currentBlogger.getCommentLikes().add(commentRepository.getById(id));
+        bloggerRepository.save(currentBlogger);
+    }
+
+    public void deleteLike(Long id) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        currentBlogger.getCommentLikes().removeIf(like -> like.getId().equals(id));
+        bloggerRepository.save(currentBlogger);
     }
 }

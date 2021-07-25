@@ -56,4 +56,12 @@ public class Blogger {
             , inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     private List<Post> postLikes;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "comment_likes"
+            , joinColumns = @JoinColumn(name = "blogger_id")
+            , inverseJoinColumns = @JoinColumn(name = "comment_id")
+    )
+    private List<Comment> commentLikes;
 }

@@ -1,4 +1,4 @@
-create table likes
+create table post_likes
 (
     post_id BIGINT not null,
     blogger_id BIGINT not null,
