@@ -15,17 +15,38 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public void createComment(@Valid @RequestBody CreateCommentDto request, @PathVariable Long postId) {
+    public void createComment(@Valid @RequestBody CreateCommentDto request
+            , @PathVariable Long postId) {
         commentService.createComment(request, postId);
     }
 
     @PutMapping("/{commentId}")
-    public void updateComment(@Valid @RequestBody CreateCommentDto request, @PathVariable Long postId, @PathVariable Long commentId) {
+    public void updateComment(@Valid @RequestBody CreateCommentDto request
+            , @PathVariable Long postId, @PathVariable Long commentId) {
         commentService.updateComment(request, postId, commentId);
     }
 
     @DeleteMapping("/{commentId}")
     public void deleteComment(@PathVariable Long commentId) {
         commentService.deleteComment(commentId);
+    }
+
+    //**replies**
+
+    @PostMapping("/{commentId}/replies")
+    public void createCommentReply(@Valid @RequestBody CreateCommentDto request
+            , @PathVariable Long postId, @PathVariable Long commentId) {
+        commentService.createCommentReply(request, postId, commentId);
+    }
+
+    @PutMapping("/{commentId}/replies")
+    public void updateCommentReply(@Valid @RequestBody CreateCommentDto request
+            , @PathVariable Long postId, @PathVariable Long commentId) {
+        commentService.updateCommentReply(request, postId, commentId);
+    }
+
+    @DeleteMapping("/{commentId}/replies/{replyId}")
+    public void deleteCommentReply(@PathVariable Long replyId) {
+        commentService.deleteCommentReply(replyId);
     }
 }
