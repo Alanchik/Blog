@@ -38,6 +38,7 @@ public class PostService {
     }
 
     public void updatePost(CreatePostDto request, Long postId) {
+        validator.validateObjectIsNull(postRepository,postId);
         Post post = postRepository.getById(postId);
         validator.validatePostAccess(post);
         post.setDescription(request.getDescription());
@@ -45,6 +46,7 @@ public class PostService {
     }
 
     public void deletePost(Long postId) {
+        validator.validateObjectIsNull(postRepository,postId);
         Post post = postRepository.getById(postId);
         validator.validatePostAccess(post);
         postRepository.deleteById(postId);
@@ -62,17 +64,19 @@ public class PostService {
         return postMapper.map(posts);
     }
 
-    public void addLike(Long id) {
+    public void addLike(Long postId) {
+        validator.validateObjectIsNull(postRepository, postId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getPostLikes().add(postRepository.getById(id));
+        currentBlogger.getPostLikes().add(postRepository.getById(postId));
         bloggerRepository.save(currentBlogger);
     }
 
-    public void deleteLike(Long id) {
+    public void deleteLike(Long postId) {
+        validator.validateObjectIsNull(postRepository,postId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getPostLikes().removeIf(like -> like.getId().equals(id));
+        currentBlogger.getPostLikes().removeIf(like -> like.getId().equals(postId));
         bloggerRepository.save(currentBlogger);
     }
 }

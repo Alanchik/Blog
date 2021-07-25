@@ -23,6 +23,7 @@ public class CommentService {
     private final Validator validator;
 
     public void createComment(CreateCommentDto commentDto, Long postId) {
+        validator.validateObjectIsNull(postRepository,postId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Comment comment = new Comment();
         comment.setPost(postRepository.getById(postId));
@@ -33,6 +34,8 @@ public class CommentService {
     }
 
     public void updateComment(CreateCommentDto request, Long postId, Long commentId) {
+        validator.validateObjectIsNull(commentRepository,commentId);
+        validator.validateObjectIsNull(postRepository,postId);
         Comment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
         Post post = postRepository.getById(postId);
@@ -42,6 +45,7 @@ public class CommentService {
     }
 
     public void deleteComment(Long commentId) {
+        validator.validateObjectIsNull(commentRepository,commentId);
         Comment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
         commentRepository.deleteById(commentId);
