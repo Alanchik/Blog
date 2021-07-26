@@ -8,7 +8,11 @@ import java.util.Optional;
 
 @Repository
 public interface BloggerRepository extends JpaRepository<Blogger, Long> {
-    @Override
+
+    boolean existsById(Long id);
+
+    Optional<Blogger> findByUsername(String username);
+
     Optional<Blogger> findById(Long id);
 
     Blogger getByUsername(String username);

@@ -1,20 +1,26 @@
 package com.chahan.blog.validator;
 
+import com.chahan.blog.dao.BloggerRepository;
+import com.chahan.blog.dao.CommentRepository;
+import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.exception.ForbiddenApiException;
 import com.chahan.blog.model.BloggerDetails;
 import com.chahan.blog.model.Comment;
 import com.chahan.blog.model.Post;
 import com.chahan.blog.util.AuthUtils;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 import static com.chahan.blog.util.CommonUtils.*;
 
 @Component
+@RequiredArgsConstructor
 public class Validator {
+
+    private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
+    private final BloggerRepository bloggerRepository;
 
     public void validateCommentAccess(Comment comment) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
@@ -38,9 +44,20 @@ public class Validator {
         }
     }
 
-    public void validateObjectIsNull(JpaRepository repository, Long id) {
-        Optional<Object> object = repository.findById(id);
-        if (object.isEmpty()) {
+    public void validateCommentExists(Long id) {
+        if (!commentRepository.existsById(id)) {
+            throw new BadRequestApiException(ERROR_INCORRECT_ID);
+        }
+    }
+
+    public void validatePostExists(Long id) {
+        if (!postRepository.existsById(id)) {
+            throw new BadRequestApiException(ERROR_INCORRECT_ID);
+        }
+    }
+
+    public void validateBloggerExists(Long id) {
+        if (!bloggerRepository.existsById(id)) {
             throw new BadRequestApiException(ERROR_INCORRECT_ID);
         }
     }

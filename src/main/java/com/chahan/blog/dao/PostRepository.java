@@ -11,7 +11,9 @@ import java.util.Set;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Override
+
+    boolean existsById(Long id);
+
     Optional<Post> findById(Long id);
 
     List<Post> getByAuthorId(Long id);

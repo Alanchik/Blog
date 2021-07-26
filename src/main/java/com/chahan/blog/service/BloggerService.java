@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.chahan.blog.util.CommonUtils.ERROR_INCORRECT_ID;
 import static com.chahan.blog.util.CommonUtils.ERROR_USER_FOLLOW_YOURSELF;
 import static java.util.stream.Collectors.toSet;
 
@@ -30,15 +31,17 @@ public class BloggerService {
     }
 
     public Blogger getBlogger(String username) {
-        return bloggerRepository.getByUsername(username);
+        return bloggerRepository.findByUsername(username)
+                .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
     }
 
     public Blogger getBlogger(Long id) {
-        return bloggerRepository.getById(id);
+        return bloggerRepository.findById(id)
+                .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
     }
 
     public void follow(Long bloggerId) {
-        validator.validateObjectIsNull(bloggerRepository,bloggerId);
+        validator.validateBloggerExists(bloggerId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         if (bloggerId.equals(blogger.getId())) {
             throw new BadRequestApiException(ERROR_USER_FOLLOW_YOURSELF);
@@ -51,7 +54,7 @@ public class BloggerService {
     }
 
     public void unfollow(Long bloggerId) {
-        validator.validateObjectIsNull(bloggerRepository,bloggerId);
+        validator.validateBloggerExists(bloggerId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
         currentBlogger.getSubscriptions().removeIf(subscription -> subscription.getId().equals(bloggerId));
