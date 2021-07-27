@@ -30,11 +30,9 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public void updateComment(CreateCommentDto request, Long postId, Long commentId) {
+    public void updateComment(CreateCommentDto request, Long commentId) {
         AbstractComment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
-        Post post = postRepository.getById(postId);
-        validator.validateCommentBelongToPost(post, commentId);
         comment.setText(request.getText());
         commentRepository.save(comment);
     }
@@ -45,32 +43,15 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
-    //**replies**
-
-    public void createCommentReply(CreateCommentDto commentDto, Long postId, Long commentId) {
+    public void createCommentReply(CreateCommentDto commentDto, Long commentId) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         CommentReply commentReply = new CommentReply();
-
-        commentReply.setPost(postRepository.getById(postId));
+        AbstractComment comment = commentRepository.getById(commentId);
+        commentReply.setPost(comment.getPost());
         commentReply.setAuthor(bloggerRepository.getById(blogger.getId()));
         commentReply.setText(commentDto.getText());
         commentReply.setPublished(LocalDateTime.now());
-        commentReply.setComment(commentRepository.getById(commentId));
+        commentReply.setComment(comment);
         commentRepository.save(commentReply);
-    }
-
-    public void updateCommentReply(CreateCommentDto request, Long postId, Long commentId) {
-        AbstractComment comment = commentRepository.getById(commentId);
-        validator.validateCommentAccess(comment);
-        Post post = postRepository.getById(postId);
-        validator.validateCommentBelongToPost(post, commentId);
-        comment.setText(request.getText());
-        commentRepository.save(comment);
-    }
-
-    public void deleteCommentReply(Long replyId) {
-        AbstractComment comment = commentRepository.getById(replyId);
-        validator.validateCommentAccess(comment);
-        commentRepository.deleteById(replyId);
     }
 }
