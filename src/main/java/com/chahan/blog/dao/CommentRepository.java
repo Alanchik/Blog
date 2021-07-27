@@ -11,5 +11,5 @@ public interface CommentRepository extends JpaRepository<AbstractComment, Long> 
 
     boolean existsById(Long id);
 
-    Optional<Comment> findById(Long id);
+    Optional<AbstractComment> findById(Long id);
 }

@@ -24,7 +24,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final Validator validator;
 
-    public Comment getById(Long id) {
+    public AbstractComment getById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
     }
