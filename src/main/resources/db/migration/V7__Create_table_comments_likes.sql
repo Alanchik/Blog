@@ -4,5 +4,5 @@ create table comment_likes
     blogger_id BIGINT not null,
     primary key (comment_id, blogger_id),
     foreign key (blogger_id) references bloggers (id),
-    foreign key (comment_id) references posts (id)
+    foreign key (comment_id) references comments (id)
 )

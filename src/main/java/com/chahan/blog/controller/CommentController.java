@@ -36,12 +36,12 @@ public class CommentController {
         commentService.createCommentReply(request, commentId);
     }
 
-    @PostMapping("/{id}/likes")
+    @PostMapping("/comments/{id}/likes")
     public void addLike(@PathVariable Long id) {
         commentService.addLike(id);
     }
 
-    @DeleteMapping("/{id}/likes")
+    @DeleteMapping("/comments/{id}/likes")
     public void deleteLike(@PathVariable Long id) {
         commentService.deleteLike(id);
     }
