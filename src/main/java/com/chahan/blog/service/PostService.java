@@ -4,6 +4,7 @@ import com.chahan.blog.dao.BloggerRepository;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreatePostDto;
 import com.chahan.blog.dto.PostDto;
+import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.mapper.PostMapper;
 import com.chahan.blog.model.Blogger;
 import com.chahan.blog.model.BloggerDetails;
@@ -18,6 +19,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import static com.chahan.blog.util.CommonUtils.ERROR_INCORRECT_ID;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -27,6 +30,11 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final Validator validator;
+
+    public Post getById(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
+    }
 
     public void createPost(CreatePostDto postDto) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
@@ -38,14 +46,14 @@ public class PostService {
     }
 
     public void updatePost(CreatePostDto request, Long postId) {
-        Post post = postRepository.getById(postId);
+        Post post = getById(postId);
         validator.validatePostAccess(post);
         post.setDescription(request.getDescription());
         postRepository.save(post);
     }
 
     public void deletePost(Long postId) {
-        Post post = postRepository.getById(postId);
+        Post post = getById(postId);
         validator.validatePostAccess(post);
         postRepository.deleteById(postId);
     }
@@ -62,17 +70,18 @@ public class PostService {
         return postMapper.map(posts);
     }
 
-    public void addLike(Long id) {
+    public void addLike(Long postId) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getPostLikes().add(postRepository.getById(id));
+        currentBlogger.getPostLikes().add(getById(postId));
         bloggerRepository.save(currentBlogger);
     }
 
-    public void deleteLike(Long id) {
+    public void deleteLike(Long postId) {
+        validator.validatePostExists(postId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getPostLikes().removeIf(like -> like.getId().equals(id));
+        currentBlogger.getPostLikes().removeIf(like -> like.getId().equals(postId));
         bloggerRepository.save(currentBlogger);
     }
 }

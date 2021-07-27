@@ -33,7 +33,6 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<AbstractComment> comments;
 
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "likes"

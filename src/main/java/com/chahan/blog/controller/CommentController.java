@@ -30,7 +30,7 @@ public class CommentController {
         commentService.deleteComment(commentId);
     }
 
-    @PostMapping("comments/{commentId}/replies")
+    @PostMapping("/comments/{commentId}/replies")
     public void createCommentReply(@Valid @RequestBody CreateCommentDto request,
                                    @PathVariable Long commentId) {
         commentService.createCommentReply(request, commentId);
