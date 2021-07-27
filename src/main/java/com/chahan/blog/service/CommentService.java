@@ -8,6 +8,8 @@ import com.chahan.blog.model.Blogger;
 import com.chahan.blog.model.BloggerDetails;
 import com.chahan.blog.model.Comment;
 import com.chahan.blog.model.Post;
+import com.chahan.blog.model.*;
+import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.util.AuthUtils;
 import com.chahan.blog.validator.Validator;
 import lombok.RequiredArgsConstructor;
@@ -15,15 +17,24 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static com.chahan.blog.util.CommonUtils.ERROR_INCORRECT_ID;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
+
     private final BloggerRepository bloggerRepository;
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final Validator validator;
 
+    public AbstractComment getById(Long id) {
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
+    }
+
     public void createComment(CreateCommentDto commentDto, Long postId) {
+        validator.validatePostExists(postId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Comment comment = new Comment();
         comment.setPost(postRepository.getById(postId));
@@ -33,17 +44,15 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public void updateComment(CreateCommentDto request, Long postId, Long commentId) {
-        Comment comment = commentRepository.getById(commentId);
+    public void updateComment(CreateCommentDto request, Long commentId) {
+        AbstractComment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
-        Post post = postRepository.getById(postId);
-        validator.validateCommentBelongToPost(post, commentId);
         comment.setText(request.getText());
         commentRepository.save(comment);
     }
 
     public void deleteComment(Long commentId) {
-        Comment comment = commentRepository.getById(commentId);
+        AbstractComment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
         commentRepository.deleteById(commentId);
     }
@@ -51,7 +60,7 @@ public class CommentService {
     public void addLike(Long id) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        Comment comment = commentRepository.getById(id);
+        AbstractComment comment = commentRepository.getById(id);
         comment.getBloggerLikes().add(currentBlogger);
         commentRepository.save(comment);
     }
@@ -59,8 +68,20 @@ public class CommentService {
     public void deleteLike(Long id) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        Comment comment = commentRepository.getById(id);
+        AbstractComment comment = commentRepository.getById(id);
         comment.getBloggerLikes().remove(currentBlogger);
         commentRepository.save(comment);
+    }
+
+    public void createCommentReply(CreateCommentDto commentDto, Long commentId) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        CommentReply commentReply = new CommentReply();
+        AbstractComment comment = commentRepository.getById(commentId);
+        commentReply.setPost(comment.getPost());
+        commentReply.setAuthor(bloggerRepository.getById(blogger.getId()));
+        commentReply.setText(commentDto.getText());
+        commentReply.setPublished(LocalDateTime.now());
+        commentReply.setComment(comment);
+        commentRepository.save(commentReply);
     }
 }

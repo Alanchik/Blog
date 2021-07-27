@@ -5,12 +5,14 @@ import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.model.Blogger;
 import com.chahan.blog.model.BloggerDetails;
 import com.chahan.blog.util.AuthUtils;
+import com.chahan.blog.validator.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.chahan.blog.util.CommonUtils.ERROR_INCORRECT_ID;
 import static com.chahan.blog.util.CommonUtils.ERROR_USER_FOLLOW_YOURSELF;
 import static java.util.stream.Collectors.toSet;
 
@@ -19,6 +21,7 @@ import static java.util.stream.Collectors.toSet;
 public class BloggerService {
 
     private final BloggerRepository bloggerRepository;
+    private final Validator validator;
 
     public void saveNewBlogger(String username, String password) {
         Blogger blogger = new Blogger();
@@ -28,28 +31,33 @@ public class BloggerService {
     }
 
     public Blogger getBlogger(String username) {
-        return bloggerRepository.getByUsername(username);
-    }
-    public Blogger getBlogger (Long id){
-        return bloggerRepository.getById(id);
+        return bloggerRepository.findByUsername(username)
+                .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
     }
 
-    public void follow(Long subscriptionBloggerId) {
+    public Blogger getBlogger(Long id) {
+        return bloggerRepository.findById(id)
+                .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
+    }
+
+    public void follow(Long bloggerId) {
+        validator.validateBloggerExists(bloggerId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
-        if (subscriptionBloggerId.equals(blogger.getId())) {
+        if (bloggerId.equals(blogger.getId())) {
             throw new BadRequestApiException(ERROR_USER_FOLLOW_YOURSELF);
         }
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        Blogger subscribeBlogger = bloggerRepository.getById(subscriptionBloggerId);
+        Blogger subscribeBlogger = bloggerRepository.getById(bloggerId);
         currentBlogger.getSubscriptions().add(subscribeBlogger);
         bloggerRepository.save(currentBlogger);
 
     }
 
-    public void unfollow(Long id) {
+    public void unfollow(Long bloggerId) {
+        validator.validateBloggerExists(bloggerId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getSubscriptions().removeIf(subscription -> subscription.getId().equals(id));
+        currentBlogger.getSubscriptions().removeIf(subscription -> subscription.getId().equals(bloggerId));
         bloggerRepository.save(currentBlogger);
     }
 
@@ -64,7 +72,6 @@ public class BloggerService {
                 .map(Blogger::getId)
                 .collect(toSet());
     }
-
 
     public Set<Long> getCurrentSubscribers() {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();

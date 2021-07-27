@@ -12,34 +12,33 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "posts")
-public class Post {
-
+@Table(name = "comments")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class AbstractComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private Blogger author;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "text")
+    private String text;
 
     @Column(name = "published")
     private LocalDateTime published;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<AbstractComment> comments;
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "post_likes"
-            , joinColumns = @JoinColumn(name = "post_id")
+            name = "comment_likes"
+            , joinColumns = @JoinColumn(name = "comment_id")
             , inverseJoinColumns = @JoinColumn(name = "blogger_id")
     )
     private List<Blogger> bloggerLikes;
 }
-
-

@@ -31,29 +31,29 @@ public class Blogger {
     private List<Post> posts;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Comment> comments;
+    private List<AbstractComment> comments;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "subscribers"
-            , joinColumns = @JoinColumn(name = "subscriber_id")
-            , inverseJoinColumns = @JoinColumn(name = "blogger_id")
+            name = "subscribers",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "blogger_id")
     )
     private Set<Blogger> subscriptions;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "subscribers"
-            , joinColumns = @JoinColumn(name = "blogger_id")
-            , inverseJoinColumns = @JoinColumn(name = "subscriber_id")
+            name = "subscribers",
+            joinColumns = @JoinColumn(name = "blogger_id"),
+            inverseJoinColumns = @JoinColumn(name = "subscriber_id")
     )
     private Set<Blogger> subscribers;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "likes"
-            , joinColumns = @JoinColumn(name = "blogger_id")
-            , inverseJoinColumns = @JoinColumn(name = "post_id")
+            name = "likes",
+            joinColumns = @JoinColumn(name = "blogger_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
     )
     private List<Post> postLikes;
 
