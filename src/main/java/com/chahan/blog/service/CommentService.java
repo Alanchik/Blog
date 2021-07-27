@@ -4,6 +4,10 @@ import com.chahan.blog.dao.BloggerRepository;
 import com.chahan.blog.dao.CommentRepository;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreateCommentDto;
+import com.chahan.blog.model.Blogger;
+import com.chahan.blog.model.BloggerDetails;
+import com.chahan.blog.model.Comment;
+import com.chahan.blog.model.Post;
 import com.chahan.blog.model.*;
 import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.util.AuthUtils;
@@ -51,6 +55,22 @@ public class CommentService {
         AbstractComment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
         commentRepository.deleteById(commentId);
+    }
+
+    public void addLike(Long id) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        AbstractComment comment = commentRepository.getById(id);
+        comment.getBloggerLikes().add(currentBlogger);
+        commentRepository.save(comment);
+    }
+
+    public void deleteLike(Long id) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        AbstractComment comment = commentRepository.getById(id);
+        comment.getBloggerLikes().remove(currentBlogger);
+        commentRepository.save(comment);
     }
 
     public void createCommentReply(CreateCommentDto commentDto, Long commentId) {

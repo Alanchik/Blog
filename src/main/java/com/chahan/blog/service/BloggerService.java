@@ -31,8 +31,7 @@ public class BloggerService {
     }
 
     public Blogger getBlogger(String username) {
-        return bloggerRepository.findByUsername(username)
-                .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
+        return bloggerRepository.getByUsername(username);
     }
 
     public Blogger getBlogger(Long id) {

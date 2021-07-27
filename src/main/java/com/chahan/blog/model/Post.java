@@ -35,7 +35,7 @@ public class Post {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "likes"
+            name = "post_likes"
             , joinColumns = @JoinColumn(name = "post_id")
             , inverseJoinColumns = @JoinColumn(name = "blogger_id")
     )

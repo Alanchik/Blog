@@ -73,15 +73,17 @@ public class PostService {
     public void addLike(Long postId) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getPostLikes().add(getById(postId));
-        bloggerRepository.save(currentBlogger);
+        Post post = postRepository.getById(postId);
+        post.getBloggerLikes().add(currentBlogger);
+        postRepository.save(post);
     }
 
     public void deleteLike(Long postId) {
         validator.validatePostExists(postId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getPostLikes().removeIf(like -> like.getId().equals(postId));
-        bloggerRepository.save(currentBlogger);
+        Post post = postRepository.getById(postId);
+        post.getBloggerLikes().remove(currentBlogger);
+        postRepository.save(post);
     }
 }
