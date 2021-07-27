@@ -51,14 +51,16 @@ public class CommentService {
     public void addLike(Long id) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getCommentLikes().add(commentRepository.getById(id));
-        bloggerRepository.save(currentBlogger);
+        Comment comment = commentRepository.getById(id);
+        comment.getBloggerLikes().add(currentBlogger);
+        commentRepository.save(comment);
     }
 
     public void deleteLike(Long id) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
-        currentBlogger.getCommentLikes().removeIf(like -> like.getId().equals(id));
-        bloggerRepository.save(currentBlogger);
+        Comment comment = commentRepository.getById(id);
+        comment.getBloggerLikes().remove(currentBlogger);
+        commentRepository.save(comment);
     }
 }
