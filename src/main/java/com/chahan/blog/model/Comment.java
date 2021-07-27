@@ -1,35 +1,20 @@
 package com.chahan.blog.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
-@Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@Table(name = "comments")
-public class Comment {
+@Entity
+@DiscriminatorValue("Comment")
+public class Comment extends AbstractComment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
-
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Blogger author;
-
-    @Column(name = "text")
-    private String text;
-
-    @Column(name = "published")
-    private LocalDateTime published;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "comment")
+    private List<CommentReply> replies;
 }

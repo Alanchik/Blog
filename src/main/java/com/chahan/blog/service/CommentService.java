@@ -4,10 +4,8 @@ import com.chahan.blog.dao.BloggerRepository;
 import com.chahan.blog.dao.CommentRepository;
 import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.dto.CreateCommentDto;
+import com.chahan.blog.model.*;
 import com.chahan.blog.exception.BadRequestApiException;
-import com.chahan.blog.model.BloggerDetails;
-import com.chahan.blog.model.Comment;
-import com.chahan.blog.model.Post;
 import com.chahan.blog.util.AuthUtils;
 import com.chahan.blog.validator.Validator;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final Validator validator;
 
-    public Comment getById(Long id) {
+    public AbstractComment getById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new BadRequestApiException(ERROR_INCORRECT_ID));
     }
@@ -42,18 +40,28 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public void updateComment(CreateCommentDto request, Long postId, Long commentId) {
-        Comment comment = getById(commentId);
+    public void updateComment(CreateCommentDto request, Long commentId) {
+        AbstractComment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
-        Post post = postRepository.getById(postId);
-        validator.validateCommentBelongToPost(post, commentId);
         comment.setText(request.getText());
         commentRepository.save(comment);
     }
 
     public void deleteComment(Long commentId) {
-        Comment comment = getById(commentId);
+        AbstractComment comment = commentRepository.getById(commentId);
         validator.validateCommentAccess(comment);
         commentRepository.deleteById(commentId);
+    }
+
+    public void createCommentReply(CreateCommentDto commentDto, Long commentId) {
+        BloggerDetails blogger = AuthUtils.getCurrentBlogger();
+        CommentReply commentReply = new CommentReply();
+        AbstractComment comment = commentRepository.getById(commentId);
+        commentReply.setPost(comment.getPost());
+        commentReply.setAuthor(bloggerRepository.getById(blogger.getId()));
+        commentReply.setText(commentDto.getText());
+        commentReply.setPublished(LocalDateTime.now());
+        commentReply.setComment(comment);
+        commentRepository.save(commentReply);
     }
 }

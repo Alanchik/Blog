@@ -31,7 +31,7 @@ public class Post {
     private LocalDateTime published;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<Comment> comments;
+    private List<AbstractComment> comments;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

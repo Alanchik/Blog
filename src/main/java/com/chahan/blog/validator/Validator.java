@@ -6,7 +6,7 @@ import com.chahan.blog.dao.PostRepository;
 import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.exception.ForbiddenApiException;
 import com.chahan.blog.model.BloggerDetails;
-import com.chahan.blog.model.Comment;
+import com.chahan.blog.model.AbstractComment;
 import com.chahan.blog.model.Post;
 import com.chahan.blog.util.AuthUtils;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +17,10 @@ import static com.chahan.blog.util.CommonUtils.*;
 @Component
 @RequiredArgsConstructor
 public class Validator {
-
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final BloggerRepository bloggerRepository;
-
-    public void validateCommentAccess(Comment comment) {
+    public void validateCommentAccess(AbstractComment comment) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
         if (!(blogger.getId()).equals(comment.getAuthor().getId())) {
             throw new ForbiddenApiException(ERROR_ACTION_FORBIDDEN);
