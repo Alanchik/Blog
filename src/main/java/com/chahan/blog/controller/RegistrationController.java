@@ -1,6 +1,6 @@
 package com.chahan.blog.controller;
 
-import com.chahan.blog.dto.RegistrationDto;
+import com.chahan.blog.model.dto.RegistrationDto;
 import com.chahan.blog.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package com.chahan.blog.model;
+package com.chahan.blog.model.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +12,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "bloggers")
 @NoArgsConstructor
+@Table(name = "bloggers")
 public class Blogger {
 
     @Id

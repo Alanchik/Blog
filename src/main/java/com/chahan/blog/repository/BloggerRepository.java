@@ -1,6 +1,6 @@
-package com.chahan.blog.dao;
+package com.chahan.blog.repository;
 
-import com.chahan.blog.model.Blogger;
+import com.chahan.blog.model.entity.Blogger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

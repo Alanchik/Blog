@@ -1,4 +1,4 @@
-package com.chahan.blog.exception_handling;
+package com.chahan.blog.exception.handling;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ApiError {
+
     private int status;
     private String message;
 }

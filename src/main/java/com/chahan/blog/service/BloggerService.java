@@ -1,9 +1,9 @@
 package com.chahan.blog.service;
 
-import com.chahan.blog.dao.BloggerRepository;
 import com.chahan.blog.exception.BadRequestApiException;
-import com.chahan.blog.model.Blogger;
-import com.chahan.blog.model.BloggerDetails;
+import com.chahan.blog.model.entity.Blogger;
+import com.chahan.blog.model.entity.BloggerDetails;
+import com.chahan.blog.repository.BloggerRepository;
 import com.chahan.blog.util.AuthUtils;
 import com.chahan.blog.validator.Validator;
 import lombok.RequiredArgsConstructor;
@@ -79,5 +79,4 @@ public class BloggerService {
                 .map(Blogger::getId)
                 .collect(Collectors.toSet());
     }
-
 }

@@ -1,4 +1,4 @@
-package com.chahan.blog.exception_handling;
+package com.chahan.blog.exception.handling;
 
 import com.chahan.blog.exception.BaseApiException;
 import org.springframework.http.HttpStatus;

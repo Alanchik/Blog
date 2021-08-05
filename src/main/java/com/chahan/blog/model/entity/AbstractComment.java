@@ -1,8 +1,9 @@
-package com.chahan.blog.model;
+package com.chahan.blog.model.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "comments")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorOptions(force = true)
 public abstract class AbstractComment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

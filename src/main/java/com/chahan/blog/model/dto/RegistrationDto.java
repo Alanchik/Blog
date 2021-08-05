@@ -1,4 +1,4 @@
-package com.chahan.blog.dto;
+package com.chahan.blog.model.dto;
 
 import lombok.Data;
 
@@ -9,6 +9,7 @@ import static com.chahan.blog.util.CommonUtils.*;
 
 @Data
 public class RegistrationDto {
+
     @NotBlank
     @Pattern(regexp = USERNAME_PATTERN, message = ERROR_USERNAME_PATTERN)
     private String username;

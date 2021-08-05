@@ -1,8 +1,9 @@
-package com.chahan.blog.model;
+package com.chahan.blog.model.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DiscriminatorFormula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,7 +32,7 @@ public class Post {
     private LocalDateTime published;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<AbstractComment> comments;
+    private List<Comment> comments;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

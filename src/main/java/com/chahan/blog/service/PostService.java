@@ -1,14 +1,13 @@
 package com.chahan.blog.service;
 
-import com.chahan.blog.dao.BloggerRepository;
-import com.chahan.blog.dao.PostRepository;
-import com.chahan.blog.dto.CreatePostDto;
-import com.chahan.blog.dto.PostDto;
 import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.mapper.PostMapper;
-import com.chahan.blog.model.Blogger;
-import com.chahan.blog.model.BloggerDetails;
-import com.chahan.blog.model.Post;
+import com.chahan.blog.model.dto.CreatePostDto;
+import com.chahan.blog.model.dto.PostDto;
+import com.chahan.blog.model.entity.Blogger;
+import com.chahan.blog.model.entity.BloggerDetails;
+import com.chahan.blog.model.entity.Post;
+import com.chahan.blog.repository.PostRepository;
 import com.chahan.blog.util.AuthUtils;
 import com.chahan.blog.validator.Validator;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,6 @@ import static com.chahan.blog.util.CommonUtils.ERROR_INCORRECT_ID;
 public class PostService {
 
     private final BloggerService bloggerService;
-    private final BloggerRepository bloggerRepository;
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final Validator validator;
@@ -72,7 +70,7 @@ public class PostService {
 
     public void addLike(Long postId) {
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
-        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        Blogger currentBlogger = bloggerService.getBlogger(blogger.getId());
         Post post = postRepository.getById(postId);
         post.getBloggerLikes().add(currentBlogger);
         postRepository.save(post);
@@ -81,7 +79,7 @@ public class PostService {
     public void deleteLike(Long postId) {
         validator.validatePostExists(postId);
         BloggerDetails blogger = AuthUtils.getCurrentBlogger();
-        Blogger currentBlogger = bloggerRepository.getById(blogger.getId());
+        Blogger currentBlogger = bloggerService.getBlogger(blogger.getId());
         Post post = postRepository.getById(postId);
         post.getBloggerLikes().remove(currentBlogger);
         postRepository.save(post);

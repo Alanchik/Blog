@@ -1,4 +1,4 @@
-package com.chahan.blog.model;
+package com.chahan.blog.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -18,7 +18,7 @@ public class CommonUtils {
             + ", no spaces and at least 8 characters";
 
     public static final String ERROR_USER_ALREADY_EXISTS = "User already exists";
-    public static final String ERROR_USER_FOLLOW_YOURSELF = "User can't subscribe yourself";
+    public static final String ERROR_USER_FOLLOW_YOURSELF = "User can't subscribe to himself";
     public static final String ERROR_USER_NOT_FOUND = "User not found";
     public static final String ERROR_ACTION_FORBIDDEN = "Action with comment forbidden";
     public static final String ERROR_COMMENT_NOT_FOUND = "Post doesn't contains comment";
