@@ -1,6 +1,6 @@
 package com.chahan.blog.controller;
 
-import com.chahan.blog.dto.CreateCommentDto;
+import com.chahan.blog.model.dto.CreateCommentDto;
 import com.chahan.blog.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

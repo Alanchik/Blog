@@ -1,8 +1,7 @@
 package com.chahan.blog.service;
 
-import com.chahan.blog.dao.BloggerRepository;
-import com.chahan.blog.model.Blogger;
-import com.chahan.blog.model.BloggerDetails;
+import com.chahan.blog.model.entity.Blogger;
+import com.chahan.blog.model.entity.BloggerDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +14,11 @@ import static com.chahan.blog.util.CommonUtils.ERROR_USER_NOT_FOUND;
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
 
-    private final BloggerRepository bloggerRepository;
+    private final BloggerService bloggerService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Blogger blogger = bloggerRepository.getByUsername(username);
+        Blogger blogger = bloggerService.getBlogger(username);
         if (blogger == null) {
             throw new UsernameNotFoundException(ERROR_USER_NOT_FOUND);
         }

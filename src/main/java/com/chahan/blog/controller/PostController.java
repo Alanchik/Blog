@@ -1,7 +1,7 @@
 package com.chahan.blog.controller;
 
-import com.chahan.blog.dto.CreatePostDto;
-import com.chahan.blog.dto.PostDto;
+import com.chahan.blog.model.dto.CreatePostDto;
+import com.chahan.blog.model.dto.PostDto;
 import com.chahan.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
