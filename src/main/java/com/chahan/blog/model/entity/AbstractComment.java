@@ -14,8 +14,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "comments")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorOptions(force = true)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class AbstractComment {
 
     @Id

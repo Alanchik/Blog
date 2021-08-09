@@ -4,6 +4,7 @@ import com.chahan.blog.exception.BadRequestApiException;
 import com.chahan.blog.exception.ForbiddenApiException;
 import com.chahan.blog.model.entity.AbstractComment;
 import com.chahan.blog.model.entity.BloggerDetails;
+import com.chahan.blog.model.entity.Comment;
 import com.chahan.blog.model.entity.Post;
 import com.chahan.blog.repository.BloggerRepository;
 import com.chahan.blog.repository.PostRepository;
@@ -43,6 +44,12 @@ public class Validator {
     public void validateBloggerExists(Long id) {
         if (!bloggerRepository.existsById(id)) {
             throw new BadRequestApiException(ERROR_INCORRECT_ID);
+        }
+    }
+
+    public void validateReplyAccess(AbstractComment comment) {
+        if (!(comment instanceof Comment)) {
+            throw new BadRequestApiException(ERROR_REPLY_TO_REPLY_FORBIDDEN);
         }
     }
 }

@@ -75,7 +75,8 @@ public class CommentService {
         commentReply.setAuthor(bloggerService.getBlogger(blogger.getId()));
         commentReply.setText(commentDto.getText());
         commentReply.setPublished(LocalDateTime.now());
-        commentReply.setComment(comment);
+        validator.validateReplyAccess(comment);
+        commentReply.setComment((Comment) comment);
         commentRepository.save(commentReply);
     }
 }

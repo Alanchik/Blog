@@ -16,7 +16,7 @@ public class CommentReply extends AbstractComment {
 
     @ManyToOne
     @JoinColumn(name = "comment_id")
-    private AbstractComment comment;
+    private Comment comment;
 }
 
 

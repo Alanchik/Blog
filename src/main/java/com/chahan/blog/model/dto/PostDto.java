@@ -12,6 +12,6 @@ public class PostDto {
     private AuthorDto author;
     private String description;
     private LocalDateTime published;
-    private List<CommentDto> comments;
     private List<Long> bloggerLikes;
+    private List<CommentDto> comments;
 }
