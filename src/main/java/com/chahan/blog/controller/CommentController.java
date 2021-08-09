@@ -19,13 +19,13 @@ public class CommentController {
         commentService.createComment(request, postId);
     }
 
-    @PutMapping("/сomments/{commentId}")
+    @PutMapping("/comments/{commentId}")
     public void updateComment(@Valid @RequestBody CreateCommentDto request,
                               @PathVariable Long commentId) {
         commentService.updateComment(request, commentId);
     }
 
-    @DeleteMapping("/сomments/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public void deleteComment(@PathVariable Long commentId) {
         commentService.deleteComment(commentId);
     }

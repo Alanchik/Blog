@@ -21,7 +21,7 @@ public class CommonUtils {
     public static final String ERROR_USER_FOLLOW_YOURSELF = "User can't subscribe to himself";
     public static final String ERROR_USER_NOT_FOUND = "User not found";
     public static final String ERROR_ACTION_FORBIDDEN = "Action with comment forbidden";
-    public static final String ERROR_COMMENT_NOT_FOUND = "Post doesn't contains comment";
     public static final String ERROR_POST_NOT_BELONG = "Post doesn't belong to current user";
     public static final String ERROR_INCORRECT_ID = "Id specified incorrectly";
+    public static final String ERROR_REPLY_TO_REPLY_FORBIDDEN = "Action with post reply to reply forbidden";
 }
